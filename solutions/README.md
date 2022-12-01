@@ -1,6 +1,6 @@
-# Solutions
+ # Solutions
 
-This folder has each all of the solutions, written in Python. Starting in 2020, I started writing a daily post to explain my solution to the day's problem.
+This folder contains all of my Advent of Code solutions written in Python. Each folder also contains a short writeup explaining my solution for that day's problem.
 
 ## Audience
 
