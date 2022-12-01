@@ -8,5 +8,6 @@ Add up how many calories each elf has and add these values into a list. Sort the
 Return the sum of the last three elements.
 
 ## Complexity Analysis:
-- Time Complexity:
-- Space Complexity:
+Let `n` be the number of elves:
+- Time Complexity: O(n * log(n))
+- Space Complexity: O(n)
