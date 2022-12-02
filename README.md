@@ -51,7 +51,7 @@ Start a new Advent of Code solution
 ./advent [--year year] [--test-data] [--debug] [--profile] [--slow] [day]
 ```
 
-Run a specific day of Advent of Code
+Run an Advent of Code solution
 
 **informational flags**
 
@@ -84,7 +84,7 @@ Run a specific day of Advent of Code
 ```
 solutions/
 ├── ...
-└── 2020/
+└── 2022/
     ├── day_01/
     │   ├── solution.py
     │   ├── input.txt
