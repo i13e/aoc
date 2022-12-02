@@ -23,7 +23,9 @@ This repo has two main commands: `start` and `advent`.
 
 #### Usage
 
-> `./start [-h] [--year YEAR] [day]`
+```
+start [-h] [--year YEAR] [day]
+```
 
 Start a new Advent of Code solution
 
@@ -45,8 +47,9 @@ Start a new Advent of Code solution
 ### `./advent`
 
 #### Usage
-
-> `./advent [--year year] [--test-data] [--debug] [--profile] [--slow] [day]`
+```
+./advent [--year year] [--test-data] [--debug] [--profile] [--slow] [day]
+```
 
 Run a specific day of Advent of Code
 
