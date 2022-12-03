@@ -1,4 +1,3 @@
-# Base class for other solutions
 import csv
 import os
 from enum import Enum, auto
@@ -52,7 +51,7 @@ def print_answer(i: int, ans: int):
         print(f"=== {ans}")
 
 
-InputType = Union[str, int, List[int], List[str]]
+InputType = Union[str, int, List[int], List[str], List[List[int]]]
 I = TypeVar("I", bound=InputType)
 
 
@@ -112,27 +111,26 @@ class BaseSolution(Generic[I]):
                 f"{self.year}/day_{self.day:02}/input{'.test' if self.use_test_data else ''}.txt",
             ),
         ) as file:
-            if self.input_type is InputTypes.TEXT:
-                return file.read().strip()
-
-            if self.input_type is InputTypes.INTEGER:
-                num = file.read()
-                return int(num.strip())
-
             if self.input_type is InputTypes.TSV:
                 reader = csv.reader(file, delimiter="\t")
-                input_ = []
-                for row in reader:
-                    input_.append([int(i) for i in row])
-                return input_
+                return [[int(i) for i in row] for row in reader]
+
+            data = file.read().strip()
+            if not data:
+                raise ValueError("input file is empty")
+
+            if self.input_type is InputTypes.TEXT:
+                return data
+
+            if self.input_type is InputTypes.INTEGER:
+                return int(data)
 
             if (
                 self.input_type is InputTypes.STRSPLIT
                 or self.input_type is InputTypes.INTSPLIT
             ):
-                file_ = file.read().strip()
                 # default to newlines
-                parts = file_.split(self.separator)
+                parts = data.split(self.separator)
 
                 if self.input_type == InputTypes.INTSPLIT:
                     return [int(i) for i in parts]
@@ -190,7 +188,7 @@ class IntSolution(BaseSolution[int]):
     input_type = InputTypes.INTEGER
 
 
-class TSVSolution(BaseSolution[List[int]]):
+class TSVSolution(BaseSolution[List[List[int]]]):
     input_type = InputTypes.TSV
 
 
@@ -217,13 +215,11 @@ def answer(ans: Union[int, Tuple[int, int]]):
     Decorator to assert the result of the function is a certain thing.
     This is specifically designed to be used on instance methods of BaseSolution.
     It only throws errors when _not_ using test data.
-
     Usage:
     ```py
     @answer(3)
     def f(i):
         return i
-
     f(1) # throws
     f(3) # returns 3 like normal
     ```
@@ -257,7 +253,6 @@ def neighbors(
 ) -> Iterator[Tuple[int, int]]:
     """
     given a point (2-tuple) it yields each neighboring point. Iterates from top left to bottom right, skipping any points as described below:
-
     * `num_directions`: Can get cardinal directions (4), include diagonals (8), or include self (9)
     * `ignore_negatives`: skips points where either value is less than 0
     * `max_size`: skips points where either value is greater than the max grid size. Currently assumes a square grid
