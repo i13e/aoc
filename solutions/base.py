@@ -5,7 +5,7 @@ from functools import wraps
 from itertools import product
 from operator import itemgetter
 from pprint import pprint
-from typing import Generic, Iterator, List, Tuple, TypeVar, Union, cast
+from typing import Generic, Iterator, List, Tuple, TypeVar, Union, cast, Any
 
 
 class InputTypes(Enum):
@@ -193,7 +193,7 @@ class IntSplitSolution(BaseSolution[List[int]]):
     input_type = InputTypes.INTSPLIT
 
 
-def answer(res: Union[int, Tuple[int, int]]):
+def answer(res: Union[Any, Tuple[Any, Any]]):
     """
     Decorator to assert the result of the function is a certain thing.
     This is specifically designed to be used on instance methods of BaseSolution.
