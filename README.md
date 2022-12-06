@@ -4,19 +4,23 @@ This is my tried-and-true Python helper package for the phenomenal [Advent of Co
 
 It expects to be run using at least Python 3.9.
 
-## Quickstart
+I currently use [advent-of-code-data](https://github.com/wimglenn/advent-of-code-data) to fetch my puzzle inputs, and I'm working on adding further support for `aocd` in the future.
+
+## Install
 
 To use this base class for your own solutions:
 
 1. Fork & clone this repo
-2. Delete my solution files (`rm -rf solutions/20*`)
+2. Remove my solution files (`rm -rf solutions/20*`)
 3. (Optional) Install `requirements.txt`
+
 ```sh
 python -m venv env
 source ./env/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
+
 4. Start a new solution using `./start` (defaults to the current year once December starts)
 5. Edit the newly created file at `solutions/YEAR/day_01/solution.py`
 6. Get your answers using `./advent`
@@ -36,11 +40,11 @@ start [-h] [--year YEAR] [day]
 
 Start a new Advent of Code solution
 
-**positional arguments**:
+**Positional Arguments**:
 
 - `day` (optional): Which puzzle day to start, between `[1,25]`. Defaults to the next day _without_ a folder (matching `day_NN`) in the specified year.
 
-**optional arguments**:
+**Optional Arguments**:
 
 - `-h, --help` (optional): show this help message and exit
 - `--year YEAR` (optional): Puzzle year. Defaults to current year if December has begun, otherwise previous year.
@@ -54,22 +58,23 @@ Start a new Advent of Code solution
 ### `./advent`
 
 #### Usage
+
 ```
 ./advent [--year year] [--test-data] [--debug] [--profile] [--slow] [day]
 ```
 
 Run an Advent of Code solution
 
-**informational flags**
+**Informational Flags**
 
 - `-h, --help`: Show this help message and exit
 - `--version`: Print version info and exit
 
-**positional arguments**:
+**Positional Arguments**:
 
 - `day` (optional): Which puzzle day to start, between `[1,25]`. Defaults to the latest day _with_ a folder (matching `day_NN`) in the specified year.
 
-**optional flags**:
+**Optional Flags**:
 
 - `--year YEAR`: puzzle year. Defaults to current year if December has begun, otherwise previous year
 - `-t, --test-data`: read puzzle input from `input.test.txt` instead of `input.txt`
