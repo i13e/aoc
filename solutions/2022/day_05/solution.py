@@ -1,21 +1,17 @@
 # prompt: https://adventofcode.com/2022/day/5
 
 # from typing import Tuple
-from ...base import TextSolution, answer
+from ...base import StrSplitSolution, answer
 
 
-class Solution(TextSolution):
+class Solution(StrSplitSolution):
     _year = 2022
     _day = 5
 
-    # @answer(1234)
+    @answer("BWNCQRMDB")
     def part_1(self, res=0) -> int:
         pass
 
-    # @answer(1234)
+    @answer("NHWZCBNBF")
     def part_2(self, res=0) -> int:
         pass
-
-    # @answer((1234, 4567))
-    # def solve(self) -> Tuple[int, int]:
-    #     pass
