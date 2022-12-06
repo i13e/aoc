@@ -162,6 +162,7 @@ only_three(3) # ok
 ```
 
 This is helpful for ensuring your answer doesn't change when editing your code after you've solved the puzzle. It's included as a comment in the template. It's ignored when running against test input, so it's easy to verify as you go.
+test
 
 ### Debugging
 
