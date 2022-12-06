@@ -1,6 +1,5 @@
 # prompt: https://adventofcode.com/2022/day/6
 
-# from typing import Tuple
 from ...base import TextSolution, answer
 
 
@@ -21,7 +20,3 @@ class Solution(TextSolution):
             if len({*self.input[i - 14 : i]}) == 14:
                 return i
         return -1
-
-    # @answer((1234, 4567))
-    # def solve(self) -> Tuple[int, int]:
-    #     pass

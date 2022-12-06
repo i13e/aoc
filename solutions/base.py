@@ -8,7 +8,7 @@ from pprint import pprint
 from typing import Generic, Iterator, List, Tuple, TypeVar, Union, cast
 
 
-class InputTypes(Enum):  # pylint: disable=too-few-public-methods
+class InputTypes(Enum):
     # one solid block of text; the default
     TEXT = auto()
     # a single int
@@ -35,10 +35,10 @@ def slow(func):
     return wrapper
 
 
-def print_answer(i: int, ans: int):
-    if ans is not None:
+def print_answer(i: int, res: int):
+    if res is not None:
         print(f"\n== Part {i}")
-        print(f"=== {ans}")
+        print(f"=== {res}")
 
 
 InputType = Union[str, int, List[int], List[str], List[List[int]]]
@@ -78,20 +78,20 @@ class BaseSolution(Generic[I]):
 
     def solve(self) -> Tuple[int, int]:
         """
-        Returns a 2-tuple with the answers.
+        Returns the result as a tuple.
             Used instead of `part_1/2` if one set of calculations yields both answers.
         """
         return self.part_1(), self.part_2()  # type: ignore
 
     def part_1(self):
         """
-        Returns the answer for part 1 of the puzzle.
+        Returns the result for part 1 of the puzzle.
             Only needed if there's not a unified solve method.
         """
 
     def part_2(self):
         """
-        Returns the answer for part 2 of the puzzle.
+        Returns the result for part 2 of the puzzle.
             Only needed if there's not a unified solve method.
         """
 
@@ -193,7 +193,7 @@ class IntSplitSolution(BaseSolution[List[int]]):
     input_type = InputTypes.INTSPLIT
 
 
-def answer(ans: Union[int, Tuple[int, int]]):
+def answer(res: Union[int, Tuple[int, int]]):
     """
     Decorator to assert the result of the function is a certain thing.
     This is specifically designed to be used on instance methods of BaseSolution.
@@ -213,9 +213,9 @@ def answer(ans: Union[int, Tuple[int, int]]):
         # uses `self` because that's what's passed to the original solution function
         def wrapper(self: BaseSolution):
             result = func(self)
-            # only assert the answer for non-test data
+            # only assert the result for non-test data
             if not self.use_test_data:
-                assert result == ans, f"expected {result=} to equal {ans=}"
+                assert result == res, f"expected {result=} to equal {res=}"
             return result
 
         return wrapper
@@ -239,7 +239,7 @@ def neighbors(
     Iterates from top left to bottom right, skipping any points as described below:
     * `num_directions`: Can get cardinal directions (4), include diagonals (8), or include self (9)
     * `ignore_negatives`: skips points where either value is less than 0
-    * `max_size`: skips points where either value is greater than the max grid size. Assumes a square grid
+    * `max_size`: skips points where either value is greater than the max grid size.
     """
     assert num_directions in [4, 8, 9]
 
