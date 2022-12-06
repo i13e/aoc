@@ -10,10 +10,17 @@ To use this base class for your own solutions:
 
 1. Fork & clone this repo
 2. Delete my solution files (`rm -rf solutions/20*`)
-3. Start a new solution using `./start` (defaults to the current year once December starts)
-4. Edit the newly created file at `solutions/YEAR/day_01/solution.py`
-5. Get your answers using `./advent`
-6. Repeat!
+3. (Optional) Install `requirements.txt`
+```sh
+python -m venv env
+source ./env/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+4. Start a new solution using `./start` (defaults to the current year once December starts)
+5. Edit the newly created file at `solutions/YEAR/day_01/solution.py`
+6. Get your answers using `./advent`
+7. Repeat!
 
 ## Commands
 
