@@ -6,19 +6,15 @@ from itertools import product
 from operator import itemgetter
 from pprint import pprint
 
-# pylint: disable=no-name-in-module
-# missing TypeVarTuple and Unpack
 from typing import (
+    Any,
     Callable,
     Generic,
     Iterator,
     TypeVar,
-    TypeVarTuple,
     Union,
-    Unpack,
     cast,
     final,
-    overload,
 )
 
 
@@ -35,21 +31,21 @@ class InputTypes(Enum):  # pylint: disable=too-few-public-methods
     INTSPLIT = auto()
 
 
-# almost always int, but occassionally str; None is fine to disable a part
+# almost always int, but occasionally str; None is fine to disable a part
 ResultType = Union[int, str, None]
 
 
-def print_answer(i: int, ans: ResultType):
-    if ans is not None:
+def print_answer(i: int, res: ResultType):
+    if res:
         print(f"\n== Part {i}")
-        print(f"=== {ans}")
+        print(f"=== {res}")
 
 
 InputType = Union[str, int, list[int], list[str], list[list[int]]]
-I = TypeVar("I", bound=InputType)
+i = TypeVar("i", bound=InputType)
 
 
-class BaseSolution(Generic[I]):
+class BaseSolution(Generic[i]):
     separator = "\n"
 
     # Solution Subclasses define these
@@ -62,7 +58,7 @@ class BaseSolution(Generic[I]):
         self.slow = run_slow  # should run slow functions?
         self.debug = debug
         self.use_test_data = use_test_data
-        self.input = cast(I, self.read_input())
+        self.input = cast(i, self.read_input())
         if not self.input:
             raise ValueError(
                 f"err, didn't read any input for {'test' if use_test_data else 'normal'} mode"
@@ -82,20 +78,20 @@ class BaseSolution(Generic[I]):
 
     def solve(self) -> tuple[ResultType, ResultType]:
         """
-        Returns a 2-tuple with the answers.
-            Used instead of `part_1/2` if one set of calculations yields both answers.
+        Returns a 2-tuple with the result.
+            Used instead of `part_1/2` if one set of calculations yields both results.
         """
         return self.part_1(), self.part_2()  # type: ignore
 
     def part_1(self):
         """
-        Returns the answer for part 1 of the puzzle.
+        Returns the result for part 1 of the puzzle.
             Only needed if there's not a unified solve method.
         """
 
     def part_2(self):
         """
-        Returns the answer for part 2 of the puzzle.
+        Returns the result for part 2 of the puzzle.
             Only needed if there's not a unified solve method.
         """
 
@@ -237,30 +233,9 @@ def slow(
 
 
 R = TypeVar("R")  # return type generic
-Ts = TypeVarTuple("Ts")  # tuple items generic
 
 
-# see: https://github.com/microsoft/pyright/discussions/4317#discussioncomment-4386187
-@overload
-def answer(
-    ans: tuple[Unpack[Ts]],
-) -> Callable[
-    [Callable[[SolutionType], tuple[Unpack[Ts]]]],
-    Callable[[SolutionType], tuple[Unpack[Ts]]],
-]:
-    ...
-
-
-@overload
-def answer(
-    ans: R,
-) -> Callable[[Callable[[SolutionType], R]], Callable[[SolutionType], R]]:
-    ...
-
-
-def answer(
-    ans: R,
-) -> Callable[[Callable[[SolutionType], R]], Callable[[SolutionType], R]]:
+def answer(res: Union[Any, tuple[Any, Any]]):
     """
     Decorator to assert the result of the function is a certain thing.
     This is specifically designed to be used on instance methods of BaseSolution.
@@ -280,9 +255,9 @@ def answer(
         # uses `self` because that's what's passed to the original solution function
         def wrapper(self: SolutionType):
             result = func(self)
-            # only assert the answer for non-test data
+            # only assert the result for non-test data
             if not self.use_test_data:
-                assert result == ans, f"expected {result=} to equal {ans=}"
+                assert result == res, f"expected {result=} to equal {res=}"
             return result
 
         return wrapper
@@ -308,7 +283,9 @@ def neighbors(
     Iterates from top left to bottom right, skipping any points as described below:
     * `num_directions`: Can get cardinal directions (4), include diagonals (8), or include self (9)
     * `ignore_negatives`: skips points where either value is less than 0
-    * `max_DIM_size`: if specified, skips points where the dimension value is greater than the max grid size in that dimension. If doing a 2D-List based (aka `(row,col)` grid) rather than a pure `(x,y)` grid, the max values should be `len(DIM) - 1`. Is mutually exclusive with `max_size`.
+    * `max_DIM_size`: if specified, skips points where the dimension value is greater than the max
+    grid size in that dimension. If doing a 2D-List based (aka `(row,col)` grid) rather than a pure
+    `(x,y)` grid, the max values should be `len(DIM) - 1`. Is mutually exclusive with `max_size`.
     For a 2D list-based grid, neighbors will come out in (row, col) format.
     """
     assert num_directions in {4, 8, 9}

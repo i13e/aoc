@@ -1,8 +1,7 @@
 # Day 10 (2022)
 
-`TITLE` ([prompt](https://adventofcode.com/2022/day/10))
+`` ([Cathode Ray Tube](https://adventofcode.com/2022/day/10))
 
 ## Part 1
 
 ## Part 2
-

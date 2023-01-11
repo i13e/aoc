@@ -25,10 +25,10 @@ class Solution(StrSplitSolution):
         R = [[] for _ in range(6)]
         t, x = 0, 1
         for i in self.input:
-            R[t // 40].append([".", "#"][abs(x - (t % 40)) <= 1])
+            R[t // 40].append([" ", "#"][abs(x - (t % 40)) <= 1])
             t += 1
             if i != "noop":
-                R[t // 40].append([".", "#"][abs(x - (t % 40)) <= 1])
+                R[t // 40].append([" ", "#"][abs(x - (t % 40)) <= 1])
                 t += 1
                 x += int(i.split()[-1])
         for r in range(6):
