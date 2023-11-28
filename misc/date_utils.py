@@ -22,12 +22,10 @@ def next_day(year_dir: Path) -> int:
     Returns 0 by default. Uses int because we add 1 later.
     """
     return max(
-        [
-            0,  # included so that new years don't break without anything in them
-            *[
-                int(x.parts[-1].split("_")[1])
-                for x in year_dir.iterdir()
-                if x.is_dir() and re.search(r"day_\d+$", str(x))
-            ],
-        ]
+        (
+            int(x.parts[-1].split("_")[1])
+            for x in year_dir.iterdir()
+            if x.is_dir() and re.search(r"day_\d+$", str(x))
+        ),
+        default=0,
     )
