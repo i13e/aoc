@@ -35,23 +35,30 @@ if __name__ == "__main__":
 
     day_dir = Path(year_dir, f"day_{day:02}")
 
-    day_dir.mkdir(parents=True, exist_ok=True)
-    Path(day_dir, "input.txt").touch()
-    Path(day_dir, "input.test.txt").touch()
-
     notes_path = Path(day_dir, "README.md")
     if not notes_path.exists():
-        # pylint: disable=line-too-long
         notes_path.write_text(
-            f"# Day {day} ({ARGS.year})\n\n`TITLE` ([prompt](https://adventofcode.com/{ARGS.year}/day/{day}))\n\n## Part 1\n\n## Part 2\n\n"
+            "\n\n".join(
+                [
+                    f"# Day {day} ({ARGS.year})",
+                    f"`TITLE` ([prompt](https://adventofcode.com/{ARGS.year}/day/{day}))",
+                    "Use this space for notes on the day's solution and to document what you've learned!",
+                    "## Part 1",
+                    "## Part 2",
+                    "",
+                ]
+            )
         )
 
     solution_path = Path(day_dir, "solution.py")
     if solution_path.exists():
-        print("skipping solution creation, files already exists")
+        # if we're here, it's probably a re-run
+        print("ensuring input files exist")
+        print("skipping solution creation, file already exists")
     else:
         template = Path("misc/example_solution.py.tmpl").read_text()
         replaced_template = template.replace("<YEAR>", ARGS.year).replace(
             "<DAY>", str(day)
         )
         solution_path.write_text(replaced_template)
+        print("Created a new Solution file at", solution_path)
