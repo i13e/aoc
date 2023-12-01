@@ -50,7 +50,13 @@ PARSER.add_argument(
 
 
 def main(
-    day: int | None, year: str, slow: bool, debug: bool, test_data: bool, time: bool
+    day: int | None,
+    year: str,
+    slow: bool,
+    debug: bool,
+    test_data: bool,
+    time: bool,
+    profile: bool,
 ) -> int:
     try:
         # class needs to have this name
