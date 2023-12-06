@@ -14,7 +14,7 @@ class Solution(StrSplitSolution):
         key = 0
         for line in filter(lambda x: ":" not in x, lines[2:]):
             if line:
-                line = list(map(int, line.strip().split()))
+                line = list(map(int, line.split()))
                 dst = (line[0], line[0] + line[2])
                 src = (line[1], line[1] + line[2])
                 maps[key][src] = dst
@@ -24,7 +24,7 @@ class Solution(StrSplitSolution):
 
     @answer(240320250)
     def part_1(self) -> int:
-        seeds = list(map(int, self.input[0].split(":")[1].strip().split()))
+        seeds = list(map(int, self.input[0].split()[1:]))
         maps = self.get_maps(self.input)
         for ranges in maps.values():
             for i, seed in enumerate(seeds):
@@ -35,7 +35,7 @@ class Solution(StrSplitSolution):
 
     @answer(28580589)
     def part_2(self) -> int:
-        seeds = list(map(int, self.input[0].split(":")[1].strip().split()))
+        seeds = list(map(int, self.input[0].split()[1:]))
         seeds = [[s, s + e] for s, e in zip(seeds[::2], seeds[1::2])]
         maps = self.get_maps(self.input)
 
