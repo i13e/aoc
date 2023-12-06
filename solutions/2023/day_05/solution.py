@@ -30,32 +30,25 @@ class Solution(StrSplitSolution):
             for i, seed in enumerate(seeds):
                 for src, dst in ranges.items():
                     if seed in range(*src):
-                        offset = seed - src[0]
-                        seeds[i] = dst[0] + offset
+                        seeds[i] = seed - src[0] + dst[0]
         return min(seeds)
 
     @answer(28580589)
     def part_2(self) -> int:
         seeds = list(map(int, self.input[0].split(":")[1].strip().split()))
-        q = []
-        for i in range(0, len(seeds), 2):
-            q.append((seeds[i], seeds[i] + seeds[i + 1]))
+        seeds = [[s, s + e] for s, e in zip(seeds[::2], seeds[1::2])]
         maps = self.get_maps(self.input)
 
-        for i in range(len(maps)):
-            tmp = []
-            for start, end in q:
-                for src, dst in maps[i].items():
+        for ranges in maps.values():
+            for i, (start, end) in enumerate(seeds):
+                for src, dst in ranges.items():
                     if start in range(*src):
-                        overlap = [start - src[0], min(end - src[1], 0)]
-                        if src[1] < end:
-                            q.append((src[1], end))
-                        tmp.append((dst[0] + overlap[0], dst[1] + overlap[1]))
-                        break
-                else:
-                    tmp.append((start, end))
-            q = tmp
-        return min(q)[0]
+                        if end not in range(*src):
+                            seeds.append([src[1], end])
+                        seeds[i][0] = start - src[0] + dst[0]
+                        seeds[i][1] = min(end - src[1], 0) + dst[1]
+
+        return min(seeds)[0]
 
     # @answer((1234, 5678))
     # def solve(self) -> tuple[int | str, int | str]:
