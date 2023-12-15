@@ -41,7 +41,7 @@ EXPECTED_2 = 0
     ("input_s", "expected_1", "expected_2"),
     (
         (INPUT_S, EXPECTED_1, EXPECTED_2),
-        # (str(data), ANSWER_1, ANSWER_2),
+        (str(data), 0, 0),
     ),
 )
 def test(input_s: str, expected_1: int, expected_2: int) -> None:

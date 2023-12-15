@@ -47,23 +47,21 @@ def part_2(s: str) -> int:
 INPUT_S = """\
 
 """
-EXPECTED_1 = 1
-EXPECTED_2 = 2
 
 
 @pytest.mark.parametrize(
     ("input_s", "expected_1", "expected_2"),
     (
-        (INPUT_S, EXPECTED_1, EXPECTED_2),
+        (INPUT_S, 0, 0),
         (str(data), 537732, 84883664),
     ),
 )
-def test_d(input_s: str, expected_1: int, expected_2: int) -> None:
-    if result_1 := part_1(input_s):
-        assert result_1 == expected_1
+def test(input_s: str, expected_1: int, expected_2: int) -> None:
+    if expected_1:
+        assert part_1(input_s) == expected_1
 
-    if result_2 := part_2(input_s):
-        assert result_2 == expected_2
+    if expected_2:
+        assert part_2(input_s) == expected_2
 
 
 def main() -> int:

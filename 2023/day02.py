@@ -45,23 +45,21 @@ Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
 Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
 Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
 """
-EXPECTED_1 = 1734
-EXPECTED_2 = 2286
 
 
 @pytest.mark.parametrize(
     ("input_s", "expected_1", "expected_2"),
     (
-        (INPUT_S, EXPECTED_1, EXPECTED_2),
+        (INPUT_S, 8, 1734),
         (str(data), 1734, 70387),
     ),
 )
-def test_d(input_s: str, expected_1: int, expected_2: int) -> None:
-    if result_1 := part_1(input_s):
-        assert result_1 == expected_1
+def test(input_s: str, expected_1: int, expected_2: int) -> None:
+    if expected_1:
+        assert part_1(input_s) == expected_1
 
-    if result_2 := part_2(input_s):
-        assert result_2 == expected_2
+    if expected_2:
+        assert part_2(input_s) == expected_2
 
 
 def main() -> int:
