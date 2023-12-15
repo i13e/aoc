@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from functools import reduce
 
-import pytest
 from aocd import data
+import pytest
 
 import support
 

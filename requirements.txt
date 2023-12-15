@@ -1,1 +1,4 @@
-advent-of-code-data==2.0.1
+-e support
+pytest
+z3-solver
+advent-of-code-data
