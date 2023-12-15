@@ -44,11 +44,11 @@ EXPECTED_2 = 2
         # (str(data), ANSWER_1, ANSWER_2),
     ),
 )
-def test_d(input_s: str, expected_1: int, expected_2: int) -> None:
-    if result_1 := part_1(input_s):
+def test(input_s: str, expected_1: int, expected_2: int) -> None:
+    if expected_1 and (result_1 := part_1(input_s)):
         assert result_1 == expected_1
 
-    if result_2 := part_2(input_s):
+    if expected_2 and (result_2 := part_2(input_s)):
         assert result_2 == expected_2
 
 
