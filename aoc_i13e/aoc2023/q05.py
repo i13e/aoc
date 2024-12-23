@@ -1,11 +1,6 @@
-from __future__ import annotations
-
 from collections import defaultdict
 
 from aocd import data
-import pytest
-
-import support
 
 
 Range = tuple[int, int]
@@ -55,66 +50,9 @@ def part_2(s: str) -> int:
     return min(seeds)[0]
 
 
-INPUT_S = """\
-seeds: 79 14 55 13
-
-seed-to-soil map:
-50 98 2
-52 50 48
-
-soil-to-fertilizer map:
-0 15 37
-37 52 2
-39 0 15
-
-fertilizer-to-water map:
-49 53 8
-0 11 42
-42 0 7
-57 7 4
-
-water-to-light map:
-88 18 7
-18 25 70
-
-light-to-temperature map:
-45 77 23
-81 45 19
-68 64 13
-
-temperature-to-humidity map:
-0 69 1
-1 0 69
-
-humidity-to-location map:
-60 56 37
-56 93 4
-"""
-EXPECTED_1 = 35
-EXPECTED_2 = 46
-
-
-@pytest.mark.parametrize(
-    ("input_s", "expected_1", "expected_2"),
-    (
-        (INPUT_S, EXPECTED_1, EXPECTED_2),
-        (str(data), 240320250, 28580589),
-    ),
-)
-def test_d(input_s: str, expected_1: int, expected_2: int) -> None:
-    if result_1 := part_1(input_s):
-        assert result_1 == expected_1
-
-    if result_2 := part_2(input_s):
-        assert result_2 == expected_2
-
-
 def main() -> int:
-    with support.timing():
-        print(part_1(str(data)))
-
-    with support.timing():
-        print(part_2(str(data)))
+    print(part_1(str(data)))
+    print(part_2(str(data)))
 
     return 0
 

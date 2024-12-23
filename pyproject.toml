@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aoc-i13e"
+# dynamic = ["version"]
+dynamic = ["dependencies"]
+version = "0.1.0"
+description = "Ian's solutions for https://adventofcode.com/"
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Games/Entertainment :: Puzzle Games",
+]
+# dependencies = [
+#     "advent-of-code-data >= 2.0.0",
+#     "anytree",
+#     "bidict",
+#     "numpy",
+#     "parse",
+#     "scipy",
+#     "sympy",
+#     "termcolor",
+#     "fields",
+#     "networkx",
+#     "marshmallow",
+#     "regex",
+#     "intervaltree",
+# ]
+
+[[project.authors]]
+name = "Ian Breckenridge"
+email = "hello@example.com"
+
+[project.license]
+text = "GPLv3"
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[project.urls]
+Homepage = "https://github.com/i13e/aoc"
+
+# [project.scripts]
+# aocw = "aoc_wim.cli:run_one"
+# s = "aoc_wim.cli:speedhack"
+# _set_docstrings = "aoc_wim.util:set_docstrings"
+# aoc-init = "aoc_wim.util:start"
+
+[project.entry-points."adventofcode.user"]
+i13e = "aoc_i13e:mysolve"
+
+[tool.setuptools.dynamic]
+# version = {attr = "aoc_i13e.__version__"}
+dependencies = {file = ["requirements.txt"]}
