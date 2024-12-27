@@ -44,23 +44,35 @@ provides correct answers for each of the puzzle test cases!)
 """
 
 import importlib
+from pathlib import Path
 
 
-def mysolve(year, day, data):
-    # this code auto-submits but there is no delay and doesn't process part_1 part_2 separately
+def dynamic_version():
+    here = Path(__file__).parent
+    years = here.glob("aoc20??")
+    max_year = max(years)
+    days = max_year.glob("q??.py")
+    max_day = max(days)
+    year = int(max_year.name[-4:])
+    day = int(max_day.name[1:3])
+    return f"{year}.{day}"
+
+
+__version__ = dynamic_version()
+
+
+def mysolve(year: str, day: str, data: str) -> tuple[str, str]:
+    ans_1, ans_2 = "", ""
     try:
         mod_name = f"aoc_i13e.aoc{year}.q{day:02d}"
         mod = importlib.import_module(name=mod_name)
-    except ModuleNotFoundError:
-        return (None, None)
-        
-    ans_1 = ans_2 = None
-    try:
+
         part_1 = getattr(mod, "part_1")
-        ans_1 = part_1(data)
+        ans_1 = str(part_1(data))
+
         part_2 = getattr(mod, "part_2")
-        ans_2 = part_2(data)
-    except AttributeError:
+        ans_2 = str(part_2(data))
+    except (ModuleNotFoundError, AttributeError):
         pass
 
     return ans_1, ans_2
