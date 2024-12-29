@@ -1,5 +1,6 @@
 import importlib
 from pathlib import Path
+from typing import Callable
 
 
 def dynamic_version():
@@ -18,16 +19,17 @@ __version__ = dynamic_version()
 
 def mysolve(year: str, day: str, data: str) -> tuple[str, str]:
     ans_1, ans_2 = "", ""
+
+    mod_name = f"aoc_i13e.aoc{year}.q{day:02d}"
+    mod = importlib.import_module(name=mod_name)
+
+    part_1: Callable[[str], str] = getattr(mod, "part_1")
+    ans_1 = str(part_1(data))
+
     try:
-        mod_name = f"aoc_i13e.aoc{year}.q{day:02d}"
-        mod = importlib.import_module(name=mod_name)
-
-        part_1 = getattr(mod, "part_1")
-        ans_1 = str(part_1(data))
-
-        part_2 = getattr(mod, "part_2")
+        part_2: Callable[[str], str] = getattr(mod, "part_2")
         ans_2 = str(part_2(data))
-    except (ModuleNotFoundError, AttributeError):
+    except AttributeError:
         pass
 
     return ans_1, ans_2
